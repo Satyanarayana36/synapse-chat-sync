@@ -14,6 +14,111 @@ export type Database = {
   }
   public: {
     Tables: {
+      chat_platforms: {
+        Row: {
+          api_key: string | null
+          created_at: string
+          id: string
+          is_active: boolean
+          name: Database["public"]["Enums"]["chat_platform"]
+          updated_at: string
+          webhook_url: string | null
+        }
+        Insert: {
+          api_key?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name: Database["public"]["Enums"]["chat_platform"]
+          updated_at?: string
+          webhook_url?: string | null
+        }
+        Update: {
+          api_key?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name?: Database["public"]["Enums"]["chat_platform"]
+          updated_at?: string
+          webhook_url?: string | null
+        }
+        Relationships: []
+      }
+      knowledge_base: {
+        Row: {
+          answer: string
+          category: string | null
+          created_at: string
+          id: string
+          question: string
+          updated_at: string
+        }
+        Insert: {
+          answer: string
+          category?: string | null
+          created_at?: string
+          id?: string
+          question: string
+          updated_at?: string
+        }
+        Update: {
+          answer?: string
+          category?: string | null
+          created_at?: string
+          id?: string
+          question?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      messages: {
+        Row: {
+          ai_confidence: number | null
+          category: Database["public"]["Enums"]["message_category"] | null
+          content: string
+          created_at: string
+          id: string
+          is_urgent: boolean | null
+          metadata: Json | null
+          platform: Database["public"]["Enums"]["chat_platform"]
+          platform_message_id: string
+          sender_id: string
+          sender_name: string | null
+          sentiment_score: number | null
+          updated_at: string
+        }
+        Insert: {
+          ai_confidence?: number | null
+          category?: Database["public"]["Enums"]["message_category"] | null
+          content: string
+          created_at?: string
+          id?: string
+          is_urgent?: boolean | null
+          metadata?: Json | null
+          platform: Database["public"]["Enums"]["chat_platform"]
+          platform_message_id: string
+          sender_id: string
+          sender_name?: string | null
+          sentiment_score?: number | null
+          updated_at?: string
+        }
+        Update: {
+          ai_confidence?: number | null
+          category?: Database["public"]["Enums"]["message_category"] | null
+          content?: string
+          created_at?: string
+          id?: string
+          is_urgent?: boolean | null
+          metadata?: Json | null
+          platform?: Database["public"]["Enums"]["chat_platform"]
+          platform_message_id?: string
+          sender_id?: string
+          sender_name?: string | null
+          sentiment_score?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string | null
@@ -35,6 +140,41 @@ export type Database = {
         }
         Relationships: []
       }
+      suggested_replies: {
+        Row: {
+          confidence_score: number | null
+          created_at: string
+          id: string
+          is_used: boolean | null
+          message_id: string
+          suggested_text: string
+        }
+        Insert: {
+          confidence_score?: number | null
+          created_at?: string
+          id?: string
+          is_used?: boolean | null
+          message_id: string
+          suggested_text: string
+        }
+        Update: {
+          confidence_score?: number | null
+          created_at?: string
+          id?: string
+          is_used?: boolean | null
+          message_id?: string
+          suggested_text?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "suggested_replies_message_id_fkey"
+            columns: ["message_id"]
+            isOneToOne: false
+            referencedRelation: "messages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -43,7 +183,13 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      chat_platform: "whatsapp" | "telegram" | "slack" | "discord"
+      message_category:
+        | "support_request"
+        | "sales_lead"
+        | "general_query"
+        | "spam"
+        | "urgent"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -170,6 +316,15 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      chat_platform: ["whatsapp", "telegram", "slack", "discord"],
+      message_category: [
+        "support_request",
+        "sales_lead",
+        "general_query",
+        "spam",
+        "urgent",
+      ],
+    },
   },
 } as const
