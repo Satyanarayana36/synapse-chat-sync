@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { ChatMessage } from '@/components/ChatMessage';
 import { MessageFilters } from '@/components/MessageFilters';
 import { AIDemo } from '@/components/AIDemo';
@@ -7,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
-import { MessageSquare, Bot, Zap, RefreshCw, Plus } from 'lucide-react';
+import { MessageSquare, Bot, Zap, RefreshCw, Plus, Mail, ArrowRight } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 
 const Index = () => {
@@ -106,9 +107,16 @@ const Index = () => {
           <div className="flex items-center justify-between">
             <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
               <MessageSquare className="w-8 h-8 text-primary" />
-              AI Chat Aggregator
+              AI Communication Hub
             </h1>
             <div className="flex items-center gap-2">
+              <Link to="/emails">
+                <Button variant="outline" className="flex items-center gap-2">
+                  <Mail className="w-4 h-4" />
+                  Email Aggregator
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+              </Link>
               <Button 
                 onClick={addSampleMessage}
                 variant="outline" 
@@ -130,7 +138,7 @@ const Index = () => {
             </div>
           </div>
           <p className="text-muted-foreground">
-            Multi-channel chat aggregator with AI-powered categorization and real-time updates
+            Multi-channel communication aggregator with AI-powered categorization and real-time updates
           </p>
         </div>
 

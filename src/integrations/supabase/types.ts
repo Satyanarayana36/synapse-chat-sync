@@ -44,6 +44,279 @@ export type Database = {
         }
         Relationships: []
       }
+      email_accounts: {
+        Row: {
+          access_token: string | null
+          created_at: string
+          display_name: string | null
+          email_address: string
+          id: string
+          imap_host: string | null
+          imap_port: number | null
+          imap_secure: boolean | null
+          is_active: boolean | null
+          last_sync_at: string | null
+          password_encrypted: string | null
+          provider: Database["public"]["Enums"]["email_provider"]
+          refresh_token: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          access_token?: string | null
+          created_at?: string
+          display_name?: string | null
+          email_address: string
+          id?: string
+          imap_host?: string | null
+          imap_port?: number | null
+          imap_secure?: boolean | null
+          is_active?: boolean | null
+          last_sync_at?: string | null
+          password_encrypted?: string | null
+          provider: Database["public"]["Enums"]["email_provider"]
+          refresh_token?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          access_token?: string | null
+          created_at?: string
+          display_name?: string | null
+          email_address?: string
+          id?: string
+          imap_host?: string | null
+          imap_port?: number | null
+          imap_secure?: boolean | null
+          is_active?: boolean | null
+          last_sync_at?: string | null
+          password_encrypted?: string | null
+          provider?: Database["public"]["Enums"]["email_provider"]
+          refresh_token?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      email_folders: {
+        Row: {
+          account_id: string
+          created_at: string
+          folder_name: string
+          folder_path: string
+          id: string
+          message_count: number | null
+        }
+        Insert: {
+          account_id: string
+          created_at?: string
+          folder_name: string
+          folder_path: string
+          id?: string
+          message_count?: number | null
+        }
+        Update: {
+          account_id?: string
+          created_at?: string
+          folder_name?: string
+          folder_path?: string
+          id?: string
+          message_count?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "email_folders_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "email_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      email_suggested_replies: {
+        Row: {
+          confidence_score: number | null
+          context_used: string | null
+          created_at: string
+          email_id: string
+          id: string
+          is_used: boolean | null
+          suggested_reply: string
+        }
+        Insert: {
+          confidence_score?: number | null
+          context_used?: string | null
+          created_at?: string
+          email_id: string
+          id?: string
+          is_used?: boolean | null
+          suggested_reply: string
+        }
+        Update: {
+          confidence_score?: number | null
+          context_used?: string | null
+          created_at?: string
+          email_id?: string
+          id?: string
+          is_used?: boolean | null
+          suggested_reply?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "email_suggested_replies_email_id_fkey"
+            columns: ["email_id"]
+            isOneToOne: false
+            referencedRelation: "emails"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      email_sync_jobs: {
+        Row: {
+          account_id: string
+          completed_at: string | null
+          created_at: string
+          emails_processed: number | null
+          error_message: string | null
+          id: string
+          last_message_date: string | null
+          started_at: string | null
+          status: string | null
+        }
+        Insert: {
+          account_id: string
+          completed_at?: string | null
+          created_at?: string
+          emails_processed?: number | null
+          error_message?: string | null
+          id?: string
+          last_message_date?: string | null
+          started_at?: string | null
+          status?: string | null
+        }
+        Update: {
+          account_id?: string
+          completed_at?: string | null
+          created_at?: string
+          emails_processed?: number | null
+          error_message?: string | null
+          id?: string
+          last_message_date?: string | null
+          started_at?: string | null
+          status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "email_sync_jobs_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "email_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      emails: {
+        Row: {
+          account_id: string
+          ai_confidence: number | null
+          bcc_emails: string[] | null
+          category: Database["public"]["Enums"]["email_category"] | null
+          cc_emails: string[] | null
+          created_at: string
+          email_body: string | null
+          email_body_html: string | null
+          email_body_plain: string | null
+          folder_id: string | null
+          from_email: string
+          from_name: string | null
+          has_attachments: boolean | null
+          id: string
+          is_flagged: boolean | null
+          is_read: boolean | null
+          message_id: string
+          priority_score: number | null
+          received_at: string
+          reply_to: string | null
+          search_vector: unknown | null
+          sent_at: string | null
+          sentiment_score: number | null
+          subject: string | null
+          to_emails: string[] | null
+          updated_at: string
+        }
+        Insert: {
+          account_id: string
+          ai_confidence?: number | null
+          bcc_emails?: string[] | null
+          category?: Database["public"]["Enums"]["email_category"] | null
+          cc_emails?: string[] | null
+          created_at?: string
+          email_body?: string | null
+          email_body_html?: string | null
+          email_body_plain?: string | null
+          folder_id?: string | null
+          from_email: string
+          from_name?: string | null
+          has_attachments?: boolean | null
+          id?: string
+          is_flagged?: boolean | null
+          is_read?: boolean | null
+          message_id: string
+          priority_score?: number | null
+          received_at: string
+          reply_to?: string | null
+          search_vector?: unknown | null
+          sent_at?: string | null
+          sentiment_score?: number | null
+          subject?: string | null
+          to_emails?: string[] | null
+          updated_at?: string
+        }
+        Update: {
+          account_id?: string
+          ai_confidence?: number | null
+          bcc_emails?: string[] | null
+          category?: Database["public"]["Enums"]["email_category"] | null
+          cc_emails?: string[] | null
+          created_at?: string
+          email_body?: string | null
+          email_body_html?: string | null
+          email_body_plain?: string | null
+          folder_id?: string | null
+          from_email?: string
+          from_name?: string | null
+          has_attachments?: boolean | null
+          id?: string
+          is_flagged?: boolean | null
+          is_read?: boolean | null
+          message_id?: string
+          priority_score?: number | null
+          received_at?: string
+          reply_to?: string | null
+          search_vector?: unknown | null
+          sent_at?: string | null
+          sentiment_score?: number | null
+          subject?: string | null
+          to_emails?: string[] | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "emails_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "email_accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "emails_folder_id_fkey"
+            columns: ["folder_id"]
+            isOneToOne: false
+            referencedRelation: "email_folders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       knowledge_base: {
         Row: {
           answer: string
@@ -67,6 +340,39 @@ export type Database = {
           created_at?: string
           id?: string
           question?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      knowledge_base_emails: {
+        Row: {
+          category: string | null
+          content: string
+          created_at: string
+          embedding_summary: string | null
+          id: string
+          tags: string[] | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string | null
+          content: string
+          created_at?: string
+          embedding_summary?: string | null
+          id?: string
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string | null
+          content?: string
+          created_at?: string
+          embedding_summary?: string | null
+          id?: string
+          tags?: string[] | null
+          title?: string
           updated_at?: string
         }
         Relationships: []
@@ -184,6 +490,15 @@ export type Database = {
     }
     Enums: {
       chat_platform: "whatsapp" | "telegram" | "slack" | "discord"
+      email_category:
+        | "interested"
+        | "meeting_booked"
+        | "not_interested"
+        | "spam"
+        | "out_of_office"
+        | "support"
+        | "sales_lead"
+      email_provider: "gmail" | "outlook" | "yahoo" | "imap" | "exchange"
       message_category:
         | "support_request"
         | "sales_lead"
@@ -318,6 +633,16 @@ export const Constants = {
   public: {
     Enums: {
       chat_platform: ["whatsapp", "telegram", "slack", "discord"],
+      email_category: [
+        "interested",
+        "meeting_booked",
+        "not_interested",
+        "spam",
+        "out_of_office",
+        "support",
+        "sales_lead",
+      ],
+      email_provider: ["gmail", "outlook", "yahoo", "imap", "exchange"],
       message_category: [
         "support_request",
         "sales_lead",

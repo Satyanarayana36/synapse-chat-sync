@@ -8,3 +8,12 @@ verify_jwt = false
 
 [functions.simulate-messages]
 verify_jwt = false
+
+[functions.categorize-email]
+verify_jwt = false
+
+[functions.suggest-reply]
+verify_jwt = false
+
+[functions.simulate-emails]
+verify_jwt = false
