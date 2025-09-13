@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { ChatMessage } from '@/components/ChatMessage';
 import { MessageFilters } from '@/components/MessageFilters';
+import { AIDemo } from '@/components/AIDemo';
 import { useMessages } from '@/hooks/useMessages';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -175,6 +176,9 @@ const Index = () => {
             </CardContent>
           </Card>
         </div>
+
+        {/* AI Demo Section */}
+        <AIDemo />
 
         {/* Filters */}
         <MessageFilters

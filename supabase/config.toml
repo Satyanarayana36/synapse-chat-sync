@@ -1,1 +1,10 @@
 project_id = "gtaknyaxqeuyvbacecqc"
+
+[functions.categorize-message]
+verify_jwt = false
+
+[functions.slack-notification]
+verify_jwt = false
+
+[functions.simulate-messages]
+verify_jwt = false
